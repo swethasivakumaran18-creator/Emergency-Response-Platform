@@ -3,6 +3,7 @@ from database import engine,Base
 from models.responder import Responder
 from models.hospital import Hospital
 from models.incident import Incident
+from routes.hospitals import router as hospital_router
 from routes.incidents import router as incident_router
 from routes.responders import router as responder_router
 
@@ -12,6 +13,7 @@ app = FastAPI()
 
 app.include_router(incident_router)
 app.include_router(responder_router)
+app.include_router(hospital_router)
 
 @app.get("/")
 def home():
