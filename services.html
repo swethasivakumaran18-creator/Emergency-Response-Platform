@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Emergency Response | Services</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+
+    <!-- LOGO -->
+    <a class="brand" href="/">
+      <span class="brand-icon">🚨</span>
+      <span><b>Emergency</b> Response</span>
+    </a>
+
+
+    <!-- NAVIGATION -->
+    <nav class="nav-links" aria-label="Main navigation">
+
+      <a href="/">
+        Home
+      </a>
+
+      <a href="/report">
+        Report
+      </a>
+
+      <a class="active" href="/services">
+        Services
+      </a>
+
+      <a href="/dashboard">
+        Dashboard
+      </a>
+
+      <a href="/about">
+        About
+      </a>
+
+    </nav>
+
+
+    <!-- SOS -->
+    <button
+      class="sos-nav"
+      onclick="openSOS()"
+    >
+      SOS
+    </button>
+
+
+    <!-- MOBILE MENU -->
+    <button
+      class="menu-btn"
+      onclick="toggleMenu()"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+  </header>
+
+
+
+  <main class="page-main">
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+
+      <div class="eyebrow">
+        RESPONSE SERVICES
+      </div>
+
+      <h1>
+        Right help. Right priority.
+      </h1>
+
+      <p>
+        A single interface for different emergency
+        scenarios and response guidance.
+      </p>
+
+    </section>
+
+
+
+    <!-- SERVICES -->
+    <section class="service-detail-grid">
+
+
+      <!-- MEDICAL -->
+      <article
+        id="medical"
+        class="service-detail"
+      >
+
+        <div class="big-icon">
+          🚑
+        </div>
+
+
+        <div>
+
+          <span class="panel-kicker">
+            MEDICAL
+          </span>
+
+          <h2>
+            Medical emergency
+          </h2>
+
+          <p>
+            Capture location and incident details so
+            medical response can be prioritized.
+          </p>
+
+
+          <ul>
+            <li>
+              Immediate SOS support
+            </li>
+
+            <li>
+              Location capture
+            </li>
+
+            <li>
+              Nearest-help workflow
+            </li>
+
+            <li>
+              Hospital pre-alert concept
+            </li>
+          </ul>
+
+
+          <!-- CLEAN URL -->
+          <a
+            class="btn btn-primary"
+            href="/report?type=Medical"
+          >
+            Report Medical Emergency
+          </a>
+
+        </div>
+
+      </article>
+
+
+
+      <!-- POLICE -->
+      <article
+        id="police"
+        class="service-detail"
+      >
+
+        <div class="big-icon">
+          🚓
+        </div>
+
+
+        <div>
+
+          <span class="panel-kicker">
+            SECURITY
+          </span>
+
+          <h2>
+            Police assistance
+          </h2>
+
+          <p>
+            Report safety, crime or security incidents
+            with structured information.
+          </p>
+
+
+          <ul>
+
+            <li>
+              Security incident category
+            </li>
+
+            <li>
+              Priority classification
+            </li>
+
+            <li>
+              Location-aware reporting
+            </li>
+
+            <li>
+              Responder status tracking
+            </li>
+
+          </ul>
+
+
+          <!-- CLEAN URL -->
+          <a
+            class="btn btn-primary"
+            href="/report?type=Crime%20%2F%20Security"
+          >
+            Report Security Incident
+          </a>
+
+        </div>
+
+      </article>
+
+
+
+      <!-- FIRE -->
+      <article
+        id="fire"
+        class="service-detail"
+      >
+
+        <div class="big-icon">
+          🚒
+        </div>
+
+
+        <div>
+
+          <span class="panel-kicker">
+            FIRE & RESCUE
+          </span>
+
+          <h2>
+            Fire and rescue
+          </h2>
+
+          <p>
+            Quickly classify a fire emergency and route
+            it to the correct response workflow.
+          </p>
+
+
+          <ul>
+
+            <li>
+              Fire-specific reporting
+            </li>
+
+            <li>
+              Critical severity support
+            </li>
+
+            <li>
+              Responder dispatch simulation
+            </li>
+
+            <li>
+              Command-center visibility
+            </li>
+
+          </ul>
+
+
+          <!-- CLEAN URL -->
+          <a
+            class="btn btn-primary"
+            href="/report?type=Fire"
+          >
+            Report Fire Emergency
+          </a>
+
+        </div>
+
+      </article>
+
+
+
+      <!-- SAFETY -->
+      <article
+        id="safety"
+        class="service-detail"
+      >
+
+        <div class="big-icon">
+          🛡️
+        </div>
+
+
+        <div>
+
+          <span class="panel-kicker">
+            PERSONAL SAFETY
+          </span>
+
+          <h2>
+            Safety assistance
+          </h2>
+
+          <p>
+            A rapid path to SOS and location sharing
+            for personal safety situations.
+          </p>
+
+
+          <ul>
+
+            <li>
+              One-tap SOS
+            </li>
+
+            <li>
+              GPS capture
+            </li>
+
+            <li>
+              Emergency status
+            </li>
+
+            <li>
+              Safety guidance
+            </li>
+
+          </ul>
+
+
+          <button
+            class="btn btn-danger"
+            onclick="openSOS()"
+          >
+            Send SOS
+          </button>
+
+        </div>
+
+      </article>
+
+    </section>
+
+
+
+    <!-- SOS CALLOUT -->
+    <section class="info-callout">
+
+      <h2>
+        Need immediate assistance?
+      </h2>
+
+      <p>
+        Use the SOS button for the fastest
+        prototype workflow.
+      </p>
+
+      <button
+        class="btn btn-danger"
+        onclick="openSOS()"
+      >
+        SEND SOS NOW
+      </button>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+
+    <div>
+
+      <a
+        class="brand"
+        href="/"
+      >
+
+        <span class="brand-icon">
+          🚨
+        </span>
+
+        <span>
+          <b>Emergency</b> Response
+        </span>
+
+      </a>
+
+      <p>
+        Fast emergency coordination.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <a href="/report">
+        Report
+      </a>
+
+      <a href="/services">
+        Services
+      </a>
+
+      <a href="/dashboard">
+        Dashboard
+      </a>
+
+      <a href="/about">
+        About
+      </a>
+
+    </div>
+
+  </footer>
+
+
+
+  <!-- SOS MODAL -->
+  <div
+    id="sosModal"
+    class="modal hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="sosTitle"
+  >
+
+    <div class="modal-card">
+
+      <button
+        class="modal-close"
+        onclick="closeSOS()"
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+
+      <div class="modal-icon">
+        SOS
+      </div>
+
+
+      <h2 id="sosTitle">
+        Start emergency assistance?
+      </h2>
+
+
+      <p>
+        Are you unsafe? Send SOS with location.
+      </p>
+
+
+      <div class="modal-actions">
+
+        <button
+          class="btn btn-secondary"
+          onclick="closeSOS()"
+        >
+          Cancel
+        </button>
+
+
+        <button
+          class="btn btn-danger"
+          onclick="confirmSOS()"
+        >
+          Send SOS
+        </button>
+
+      </div>
+
+
+      <div
+        id="sosResult"
+        class="result-box hidden"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- JAVASCRIPT -->
+  <script src="js/main.js"></script>
+
+</body>
+
+</html>

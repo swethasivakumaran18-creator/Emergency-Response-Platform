@@ -1,0 +1,421 @@
+/* =========================================================
+   EMERGENCY RESPONSE - COMMAND CENTER
+   Dashboard Styles
+   ========================================================= */
+
+.dashboard-body {
+  background: #f4f7fa;
+}
+
+/* =========================
+   MAIN DASHBOARD
+   ========================= */
+
+.dashboard-main {
+  padding: 45px 5%;
+  max-width: 1500px;
+  margin: auto;
+}
+
+/* =========================
+   DASHBOARD HEADER
+   ========================= */
+
+.dashboard-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.dashboard-title h1 {
+  font-size: 40px;
+  letter-spacing: -1.5px;
+  margin: 5px 0;
+}
+
+.dashboard-title p {
+  color: var(--muted);
+  margin: 0;
+}
+
+/* =========================
+   METRICS
+   ========================= */
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.metric {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  padding: 22px;
+  overflow: hidden;
+  transition: 0.2s ease;
+}
+
+.metric:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(16, 25, 35, 0.08);
+}
+
+.metric::after {
+  content: "";
+  position: absolute;
+  right: -25px;
+  bottom: -25px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(239, 54, 54, 0.04);
+}
+
+.metric span {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+
+.metric strong {
+  display: block;
+  font-size: 34px;
+  margin: 5px 0;
+}
+
+.metric small {
+  color: var(--muted);
+}
+
+.metric.critical {
+  border-color: rgba(239, 54, 54, 0.22);
+}
+
+.metric.critical strong {
+  color: var(--red);
+}
+
+/* =========================
+   DASHBOARD GRID
+   ========================= */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 0.8fr;
+  gap: 18px;
+}
+
+.map-panel,
+.feed-panel,
+.dispatch-panel {
+  padding: 20px;
+}
+
+/* =========================
+   MAP
+   ========================= */
+
+.map-panel {
+  min-height: 500px;
+}
+
+.map-panel #map {
+  height: 415px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+/* Leaflet popup */
+
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+}
+
+.leaflet-popup-content {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* =========================
+   INCIDENT FEED
+   ========================= */
+
+.incident-feed {
+  max-height: 415px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.incident-feed::-webkit-scrollbar {
+  width: 6px;
+}
+
+.incident-feed::-webkit-scrollbar-thumb {
+  background: #ccd6e0;
+  border-radius: 999px;
+}
+
+.incident-card {
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+  transition: 0.2s ease;
+}
+
+.incident-card:hover {
+  padding-left: 6px;
+}
+
+.incident-card:first-child {
+  padding-top: 4px;
+}
+
+.incident-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.incident-title {
+  font-weight: 800;
+}
+
+.incident-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* =========================
+   PRIORITY BADGES
+   ========================= */
+
+.priority-badge {
+  font-size: 10px;
+  font-weight: 900;
+  border-radius: 999px;
+  padding: 5px 8px;
+  white-space: nowrap;
+}
+
+.priority-critical {
+  background: #ffe8e8;
+  color: #c92727;
+}
+
+.priority-high {
+  background: #fff0d7;
+  color: #a86500;
+}
+
+.priority-medium {
+  background: #fff8d9;
+  color: #826b00;
+}
+
+.priority-low {
+  background: #eaf7f1;
+  color: #146b49;
+}
+
+/* =========================
+   CLEAR DATA BUTTON
+   ========================= */
+
+.text-btn {
+  border: 0;
+  background: transparent;
+  color: var(--red);
+  font-weight: 700;
+  padding: 6px 0;
+}
+
+.text-btn:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   EMPTY STATE
+   ========================= */
+
+.empty-state {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--muted);
+  padding: 30px;
+}
+
+.empty-state > div {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.empty-state h3 {
+  color: var(--ink);
+  margin: 0 0 5px;
+}
+
+.empty-state p {
+  max-width: 320px;
+  margin: 0;
+  font-size: 13px;
+}
+
+/* =========================
+   DISPATCH SECTION
+   ========================= */
+
+.dispatch-panel {
+  margin-top: 18px;
+}
+
+.dispatch-table {
+  overflow-x: auto;
+}
+
+.dispatch-row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr 1fr;
+  gap: 10px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+  min-width: 650px;
+  align-items: center;
+}
+
+.dispatch-row:last-child {
+  border-bottom: 0;
+}
+
+.dispatch-row.header {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+/* =========================
+   STATUS PILLS
+   ========================= */
+
+.status-pill {
+  font-size: 10px;
+  width: max-content;
+  border-radius: 999px;
+  padding: 5px 8px;
+  font-weight: 900;
+}
+
+.status-pill.green {
+  background: #eaf7f1;
+  color: #146b49;
+}
+
+.status-pill.amber {
+  background: #fff0d7;
+  color: #a86500;
+}
+
+.status-pill.red {
+  background: #ffe8e8;
+  color: #c92727;
+}
+
+/* =========================
+   LIVE ANIMATION
+   ========================= */
+
+.live-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.live-dot::first-letter {
+  color: var(--red);
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 1100px) {
+
+  .metric-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  .dashboard-main {
+    padding: 30px 5%;
+  }
+
+  .dashboard-title {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dashboard-title h1 {
+    font-size: 31px;
+  }
+
+  .metric-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .metric {
+    padding: 18px;
+  }
+
+  .metric strong {
+    font-size: 28px;
+  }
+
+  .map-panel #map {
+    height: 350px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metric strong {
+    font-size: 30px;
+  }
+
+  .dashboard-title .btn {
+    width: 100%;
+  }
+
+  .map-panel,
+  .feed-panel,
+  .dispatch-panel {
+    padding: 15px;
+  }
+
+}

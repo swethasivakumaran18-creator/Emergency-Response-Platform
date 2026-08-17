@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Emergency Response | Command Center</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+
+<body class="dashboard-body">
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+
+    <!-- CLEAN HOME URL -->
+    <a class="brand" href="/">
+      <span class="brand-icon">🚨</span>
+      <span><b>Emergency</b> Response</span>
+    </a>
+
+
+    <nav class="nav-links" aria-label="Main navigation">
+
+      <a href="/">
+        Home
+      </a>
+
+      <a href="/report">
+        Report
+      </a>
+
+      <a href="/services">
+        Services
+      </a>
+
+      <a class="active" href="/dashboard">
+        Dashboard
+      </a>
+
+      <a href="/about">
+        About
+      </a>
+
+    </nav>
+
+
+    <!-- SOS -->
+    <button
+      class="sos-nav"
+      onclick="openSOS()"
+    >
+      SOS
+    </button>
+
+
+    <!-- MOBILE MENU -->
+    <button
+      class="menu-btn"
+      onclick="toggleMenu()"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+  </header>
+
+
+
+  <!-- MAIN DASHBOARD -->
+  <main class="dashboard-main">
+
+    <!-- TITLE -->
+    <div class="dashboard-title">
+
+      <div>
+
+        <div class="eyebrow">
+          LIVE OPERATIONS
+        </div>
+
+        <h1>
+          Emergency Command Center
+        </h1>
+
+        <p>
+          Monitor incidents, priority and responder status
+          in one place.
+        </p>
+
+      </div>
+
+
+      <button
+        class="btn btn-danger"
+        onclick="simulateEmergency()"
+      >
+        ⚡ Simulate Emergency
+      </button>
+
+    </div>
+
+
+
+    <!-- METRICS -->
+    <div class="metric-grid">
+
+      <!-- ACTIVE -->
+      <div class="metric">
+
+        <span>
+          ACTIVE INCIDENTS
+        </span>
+
+        <strong id="activeCount">
+          0
+        </strong>
+
+        <small>
+          Open cases
+        </small>
+
+      </div>
+
+
+      <!-- CRITICAL -->
+      <div class="metric critical">
+
+        <span>
+          CRITICAL CASES
+        </span>
+
+        <strong id="criticalCount">
+          0
+        </strong>
+
+        <small>
+          Immediate attention
+        </small>
+
+      </div>
+
+
+      <!-- RESPONDERS -->
+      <div class="metric">
+
+        <span>
+          RESPONDERS ACTIVE
+        </span>
+
+        <strong>
+          12
+        </strong>
+
+        <small>
+          Across services
+        </small>
+
+      </div>
+
+
+      <!-- RESPONSE TIME -->
+      <div class="metric">
+
+        <span>
+          AVG RESPONSE
+        </span>
+
+        <strong>
+          06:42
+        </strong>
+
+        <small>
+          Demo metric
+        </small>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- MAP + LIVE FEED -->
+    <div class="dashboard-grid">
+
+
+      <!-- MAP -->
+      <section class="panel map-panel">
+
+        <div class="panel-head">
+
+          <div>
+
+            <span class="panel-kicker">
+              SITUATIONAL MAP
+            </span>
+
+            <h2>
+              Incident locations
+            </h2>
+
+          </div>
+
+          <span class="live-dot">
+            ● LIVE
+          </span>
+
+        </div>
+
+
+        <div id="map"></div>
+
+      </section>
+
+
+
+      <!-- LIVE INCIDENT FEED -->
+      <section class="panel feed-panel">
+
+        <div class="panel-head">
+
+          <div>
+
+            <span class="panel-kicker">
+              EVENT STREAM
+            </span>
+
+            <h2>
+              Live incident feed
+            </h2>
+
+          </div>
+
+
+          <button
+            class="text-btn"
+            onclick="clearIncidents()"
+          >
+            Clear demo data
+          </button>
+
+        </div>
+
+
+        <div
+          id="incidentFeed"
+          class="incident-feed"
+        ></div>
+
+      </section>
+
+    </div>
+
+
+
+    <!-- DISPATCH -->
+    <section class="panel dispatch-panel">
+
+      <div class="panel-head">
+
+        <div>
+
+          <span class="panel-kicker">
+            DISPATCH
+          </span>
+
+          <h2>
+            Responder operations
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="dispatch-table">
+
+
+        <!-- HEADER -->
+        <div class="dispatch-row header">
+
+          <span>
+            Unit
+          </span>
+
+          <span>
+            Type
+          </span>
+
+          <span>
+            Status
+          </span>
+
+          <span>
+            ETA
+          </span>
+
+        </div>
+
+
+
+        <!-- AMBULANCE -->
+        <div class="dispatch-row">
+
+          <span>
+            AMB-07
+          </span>
+
+          <span>
+            🚑 Ambulance
+          </span>
+
+          <b class="status-pill green">
+            AVAILABLE
+          </b>
+
+          <span>
+            —
+          </span>
+
+        </div>
+
+
+
+        <!-- POLICE -->
+        <div class="dispatch-row">
+
+          <span>
+            POL-12
+          </span>
+
+          <span>
+            🚓 Police
+          </span>
+
+          <b class="status-pill green">
+            AVAILABLE
+          </b>
+
+          <span>
+            —
+          </span>
+
+        </div>
+
+
+
+        <!-- FIRE -->
+        <div class="dispatch-row">
+
+          <span>
+            FIR-04
+          </span>
+
+          <span>
+            🚒 Fire
+          </span>
+
+          <b class="status-pill amber">
+            EN ROUTE
+          </b>
+
+          <span>
+            04:30
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+
+    <div>
+
+      <!-- CLEAN HOME URL -->
+      <a class="brand" href="/">
+
+        <span class="brand-icon">
+          🚨
+        </span>
+
+        <span>
+          <b>Emergency</b> Response
+        </span>
+
+      </a>
+
+      <p>
+        Command-center dashboard.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <a href="/report">
+        Report
+      </a>
+
+      <a href="/services">
+        Services
+      </a>
+
+      <a href="/dashboard">
+        Dashboard
+      </a>
+
+      <a href="/about">
+        About
+      </a>
+
+    </div>
+
+  </footer>
+
+
+
+  <!-- SOS MODAL -->
+  <div
+    id="sosModal"
+    class="modal hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="sosTitle"
+  >
+
+    <div class="modal-card">
+
+      <button
+        class="modal-close"
+        onclick="closeSOS()"
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+
+      <div class="modal-icon">
+        SOS
+      </div>
+
+
+      <h2 id="sosTitle">
+        Start emergency assistance?
+      </h2>
+
+
+      <p>
+        Are you unsafe? Send SOS with location.
+      </p>
+
+
+      <div class="modal-actions">
+
+        <button
+          class="btn btn-secondary"
+          onclick="closeSOS()"
+        >
+          Cancel
+        </button>
+
+        <button
+          class="btn btn-danger"
+          onclick="confirmSOS()"
+        >
+          Send SOS
+        </button>
+
+      </div>
+
+
+      <div
+        id="sosResult"
+        class="result-box hidden"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script src="js/main.js"></script>
+
+  <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>

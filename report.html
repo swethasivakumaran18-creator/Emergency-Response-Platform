@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Emergency Response | Report</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+
+    <a class="brand" href="/">
+      <span class="brand-icon">🚨</span>
+      <span><b>Emergency</b> Response</span>
+    </a>
+
+
+    <nav class="nav-links" aria-label="Main navigation">
+
+      <a href="/">
+        Home
+      </a>
+
+      <a class="active" href="/report">
+        Report
+      </a>
+
+      <a href="/services">
+        Services
+      </a>
+
+      <a href="/dashboard">
+        Dashboard
+      </a>
+
+      <a href="/about">
+        About
+      </a>
+
+    </nav>
+
+
+    <button
+      class="sos-nav"
+      onclick="openSOS()"
+    >
+      SOS
+    </button>
+
+
+    <button
+      class="menu-btn"
+      onclick="toggleMenu()"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+  </header>
+
+
+
+  <main class="page-main">
+
+    <!-- PAGE HEADER -->
+    <section class="page-hero">
+
+      <div class="eyebrow">
+        INCIDENT REPORTING
+      </div>
+
+      <h1>
+        Tell us what happened.
+      </h1>
+
+      <p>
+        Give the response team the information they need.
+        Location can be captured directly from your device.
+      </p>
+
+    </section>
+
+
+
+    <!-- REPORT SECTION -->
+    <section class="report-layout">
+
+
+      <!-- FORM -->
+      <form
+        id="reportForm"
+        class="panel form-panel"
+      >
+
+        <div class="panel-head">
+
+          <div>
+
+            <span class="panel-kicker">
+              NEW INCIDENT
+            </span>
+
+            <h2>
+              Emergency report
+            </h2>
+
+          </div>
+
+          <span class="live-dot">
+            ● LIVE
+          </span>
+
+        </div>
+
+
+        <!-- NAME -->
+        <label>
+          Full name
+
+          <input
+            id="name"
+            type="text"
+            placeholder="Enter your name"
+            autocomplete="name"
+            required
+          >
+
+        </label>
+
+
+        <!-- PHONE + TYPE -->
+        <div class="form-grid">
+
+          <label>
+            Phone number
+
+            <input
+              id="phone"
+              type="tel"
+              placeholder="10-digit mobile number"
+              pattern="[0-9]{10}"
+              maxlength="10"
+              autocomplete="tel"
+              required
+            >
+
+          </label>
+
+
+          <label>
+            Emergency type
+
+            <select
+              id="type"
+              required
+            >
+
+              <option value="">
+                Select type
+              </option>
+
+              <option value="Medical">
+                Medical
+              </option>
+
+              <option value="Road Accident">
+                Road Accident
+              </option>
+
+              <option value="Fire">
+                Fire
+              </option>
+
+              <option value="Crime / Security">
+                Crime / Security
+              </option>
+
+              <option value="Women Safety">
+                Women Safety
+              </option>
+
+              <option value="Natural Disaster">
+                Natural Disaster
+              </option>
+
+              <option value="Other">
+                Other
+              </option>
+
+            </select>
+
+          </label>
+
+        </div>
+
+
+
+        <!-- SEVERITY -->
+        <label>
+          Severity
+
+          <select
+            id="severity"
+            required
+          >
+
+            <option value="">
+              Select severity
+            </option>
+
+            <option value="Critical">
+              Critical - immediate danger
+            </option>
+
+            <option value="High">
+              High - urgent response
+            </option>
+
+            <option value="Medium">
+              Medium - assistance needed
+            </option>
+
+            <option value="Low">
+              Low - non-urgent
+            </option>
+
+          </select>
+
+        </label>
+
+
+
+        <!-- DESCRIPTION -->
+        <label>
+          What happened?
+
+          <textarea
+            id="description"
+            rows="5"
+            placeholder="Briefly describe the emergency..."
+            required
+          ></textarea>
+
+        </label>
+
+
+
+        <!-- LOCATION -->
+        <div class="location-box">
+
+          <div>
+
+            <strong>
+              📍 Location
+            </strong>
+
+            <p id="locationText">
+              Location not captured
+            </p>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-secondary small"
+            onclick="captureLocation()"
+          >
+            Use My Location
+          </button>
+
+        </div>
+
+
+        <!-- HIDDEN GPS VALUES -->
+        <input
+          type="hidden"
+          id="lat"
+        >
+
+        <input
+          type="hidden"
+          id="lng"
+        >
+
+
+
+        <!-- SUBMIT -->
+        <button
+          class="btn btn-primary wide"
+          type="submit"
+        >
+          Create Emergency Report →
+        </button>
+
+
+        <!-- RESULT -->
+        <div
+          id="formResult"
+          class="result-box hidden"
+          aria-live="polite"
+        ></div>
+
+      </form>
+
+
+
+      <!-- SMART RESPONSE SIDE -->
+      <aside class="panel side-panel">
+
+
+        <div class="priority-preview">
+
+          <span>
+            SMART RESPONSE
+          </span>
+
+          <strong id="priorityLabel">
+            Waiting for report
+          </strong>
+
+          <p id="priorityText">
+            Select an emergency type and severity
+            to see the recommended response.
+          </p>
+
+        </div>
+
+
+
+        <div class="response-list">
+
+          <h3>
+            Recommended response
+          </h3>
+
+
+          <div id="responseItems">
+
+            <div class="response-item">
+
+              <span>
+                🚑
+              </span>
+
+              <div>
+                <b>
+                  Ambulance
+                </b>
+
+                <small>
+                  Triggered for medical/accident emergencies
+                </small>
+              </div>
+
+            </div>
+
+
+            <div class="response-item">
+
+              <span>
+                🚓
+              </span>
+
+              <div>
+                <b>
+                  Police
+                </b>
+
+                <small>
+                  Triggered for security and crime incidents
+                </small>
+              </div>
+
+            </div>
+
+
+            <div class="response-item">
+
+              <span>
+                🚒
+              </span>
+
+              <div>
+                <b>
+                  Fire & Rescue
+                </b>
+
+                <small>
+                  Triggered for fire incidents
+                </small>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- SAFETY NOTE -->
+        <div class="safety-note">
+
+          <b>
+            Safety note
+          </b>
+
+          <p>
+            This prototype provides coordination support.
+            For a real emergency, contact your local
+            emergency services as appropriate.
+          </p>
+
+        </div>
+
+      </aside>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+
+    <div>
+
+      <a
+        class="brand"
+        href="/"
+      >
+
+        <span class="brand-icon">
+          🚨
+        </span>
+
+        <span>
+          <b>Emergency</b> Response
+        </span>
+
+      </a>
+
+      <p>
+        Emergency coordination prototype.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <a href="/report">
+        Report
+      </a>
+
+      <a href="/services">
+        Services
+      </a>
+
+      <a href="/dashboard">
+        Dashboard
+      </a>
+
+      <a href="/about">
+        About
+      </a>
+
+    </div>
+
+  </footer>
+
+
+
+  <!-- SOS MODAL -->
+  <div
+    id="sosModal"
+    class="modal hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="sosTitle"
+  >
+
+    <div class="modal-card">
+
+      <button
+        class="modal-close"
+        onclick="closeSOS()"
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+
+      <div class="modal-icon">
+        SOS
+      </div>
+
+
+      <h2 id="sosTitle">
+        Start emergency assistance?
+      </h2>
+
+
+      <p>
+        Are you unsafe? Send SOS with location.
+      </p>
+
+
+      <div class="modal-actions">
+
+        <button
+          class="btn btn-secondary"
+          onclick="closeSOS()"
+        >
+          Cancel
+        </button>
+
+
+        <button
+          class="btn btn-danger"
+          onclick="confirmSOS()"
+        >
+          Send SOS
+        </button>
+
+      </div>
+
+
+      <div
+        id="sosResult"
+        class="result-box hidden"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- JAVASCRIPT -->
+  <script src="js/main.js"></script>
+  <script src="js/report.js"></script>
+
+</body>
+
+</html>

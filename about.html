@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Emergency Response | About</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+
+    <a class="brand" href="/">
+      <span class="brand-icon">🚨</span>
+      <span><b>Emergency</b> Response</span>
+    </a>
+
+
+    <nav class="nav-links" aria-label="Main navigation">
+
+      <a href="/">
+        Home
+      </a>
+
+      <a href="/report">
+        Report
+      </a>
+
+      <a href="/services">
+        Services
+      </a>
+
+      <a href="/dashboard">
+        Dashboard
+      </a>
+
+      <a class="active" href="/about">
+        About
+      </a>
+
+    </nav>
+
+
+    <button
+      class="sos-nav"
+      onclick="openSOS()"
+    >
+      SOS
+    </button>
+
+
+    <button
+      class="menu-btn"
+      onclick="toggleMenu()"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+  </header>
+
+
+
+  <main class="page-main">
+
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+
+      <div class="eyebrow">
+        ABOUT THE PLATFORM
+      </div>
+
+      <h1>
+        Built around one idea:<br>
+        <span>reduce the time to action.</span>
+      </h1>
+
+      <p>
+        Emergency Response is a platform that connects incident 
+        reporting, location awareness, prioritization and response
+        coordination in one simple interface.
+      </p>
+
+    </section>
+
+
+
+    <!-- PROBLEM + SOLUTION -->
+    <section class="about-grid">
+
+
+      <!-- PROBLEM -->
+      <div class="panel">
+
+        <span class="panel-kicker">
+          THE PROBLEM
+        </span>
+
+        <h2>
+          Emergency information is fragmented.
+        </h2>
+
+        <p>
+          During a crisis, users may need to communicate
+          what happened, where it happened and what kind
+          of help is needed. Our concept brings these pieces
+          into one structured workflow.
+        </p>
+
+      </div>
+
+
+
+      <!-- SOLUTION -->
+      <div class="panel dark-panel">
+
+        <span class="panel-kicker">
+          THE SOLUTION
+        </span>
+
+        <h2>
+          Signal → intelligence → action.
+        </h2>
+
+        <p>
+          We transform a report into a structured incident,
+          apply priority rules, recommend response resources
+          and surface the case in a command-center dashboard.
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- SYSTEM FLOW -->
+    <section class="section">
+
+      <div class="section-heading">
+
+        <div>
+
+          <div class="eyebrow">
+            SYSTEM FLOW
+          </div>
+
+          <h2>
+            Designed for fast decisions.
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="timeline">
+
+
+        <!-- 01 -->
+        <div>
+
+          <b>
+            01
+          </b>
+
+          <div>
+
+            <h3>
+              Detect
+            </h3>
+
+            <p>
+              SOS or emergency report starts the workflow.
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- 02 -->
+        <div>
+
+          <b>
+            02
+          </b>
+
+          <div>
+
+            <h3>
+              Understand
+            </h3>
+
+            <p>
+              Emergency type, severity and description
+              are structured.
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- 03 -->
+        <div>
+
+          <b>
+            03
+          </b>
+
+          <div>
+
+            <h3>
+              Locate
+            </h3>
+
+            <p>
+              GPS coordinates provide the incident location
+              when permission is granted.
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- 04 -->
+        <div>
+
+          <b>
+            04
+          </b>
+
+          <div>
+
+            <h3>
+              Dispatch
+            </h3>
+
+            <p>
+              Response recommendations and responder
+              status are displayed.
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- 05 -->
+        <div>
+
+          <b>
+            05
+          </b>
+
+          <div>
+
+            <h3>
+              Resolve
+            </h3>
+
+            <p>
+              Status can move from reported to dispatched,
+              en route and resolved.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- TECHNOLOGY -->
+    <section class="tech-stack">
+
+      <span>
+        HTML
+      </span>
+
+      <span>
+        CSS
+      </span>
+
+      <span>
+        JavaScript
+      </span>
+
+      <span>
+        Geolocation API
+      </span>
+
+      <span>
+        Leaflet Maps
+      </span>
+
+      <span>
+        LocalStorage
+      </span>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+
+    <div>
+
+      <a
+        class="brand"
+        href="/"
+      >
+
+        <span class="brand-icon">
+          🚨
+        </span>
+
+        <span>
+          <b>Emergency</b> Response
+        </span>
+
+      </a>
+
+      <p>
+        Built for faster, smarter emergency coordination.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <a href="/report">
+        Report
+      </a>
+
+      <a href="/services">
+        Services
+      </a>
+
+      <a href="/dashboard">
+        Dashboard
+      </a>
+
+      <a href="/about">
+        About
+      </a>
+
+    </div>
+
+  </footer>
+
+
+
+  <!-- SOS MODAL -->
+  <div
+    id="sosModal"
+    class="modal hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="sosTitle"
+  >
+
+    <div class="modal-card">
+
+      <button
+        class="modal-close"
+        onclick="closeSOS()"
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+
+      <div class="modal-icon">
+        SOS
+      </div>
+
+
+      <h2 id="sosTitle">
+        Start emergency assistance?
+      </h2>
+
+
+      <p>
+        Are you unsafe? Send SOS with location.
+      </p>
+
+
+      <div class="modal-actions">
+
+        <button
+          class="btn btn-secondary"
+          onclick="closeSOS()"
+        >
+          Cancel
+        </button>
+
+
+        <button
+          class="btn btn-danger"
+          onclick="confirmSOS()"
+        >
+          Send SOS
+        </button>
+
+      </div>
+
+
+      <div
+        id="sosResult"
+        class="result-box hidden"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+
+  <script src="js/main.js"></script>
+
+</body>
+
+</html>
