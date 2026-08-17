@@ -1,12 +1,19 @@
+import os
+
+import httpx
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-import httpx
 
 from database import SessionLocal
 from models.incident import Incident
 from schemas.incident import IncidentCreate
 
 router = APIRouter()
+
+AI_SERVICE_URL = os.getenv(
+    "AI_SERVICE_URL",
+    "http://127.0.0.1:8001"
+)
 
 
 def get_db():
@@ -23,18 +30,30 @@ def create_incident(
     db: Session = Depends(get_db)
 ):
     # Send incident to AI analyzer
-    ai_response = httpx.post(
-        "http://127.0.0.1:8001/analyze",
-        json={
-            "type": incident.type,
-            "description": incident.description or "",
-            "location": f"{incident.latitude}, {incident.longitude}"
-        },
-        timeout=10.0
-    )
+    try:
+        ai_response = httpx.post(
+            f"{AI_SERVICE_URL}/analyze",
+            json={
+                "type": incident.type,
+                "description": incident.description or "",
+                "location": f"{incident.latitude}, {incident.longitude}"
+            },
+            timeout=10.0
+        )
 
-    ai_response.raise_for_status()
-    ai_result = ai_response.json()
+        ai_response.raise_for_status()
+        ai_result = ai_response.json()
+
+    except httpx.RequestError:
+        raise HTTPException(
+            status_code=503,
+            detail="AI service is unavailable"
+        )
+    except httpx.HTTPStatusError:
+        raise HTTPException(
+            status_code=502,
+            detail="AI service returned an error"
+        )
 
     # Save incident with AI-generated severity
     new_incident = Incident(
@@ -62,8 +81,7 @@ def create_incident(
 
 @router.get("/incidents")
 def get_incidents(db: Session = Depends(get_db)):
-    incidents = db.query(Incident).all()
-    return incidents
+    return db.query(Incident).all()
 
 
 @router.get("/incidents/{incident_id}")
