@@ -6,4 +6,3 @@ class IncidentCreate(BaseModel):
     description: str | None = None
     latitude: float
     longitude: float
-    severity: str = "Medium"

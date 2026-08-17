@@ -18,8 +18,9 @@ class Incident(Base):
     severity = Column(String(20), default="Medium")
     status = Column(String(30), default="Reported")
 
+    responder_id = Column(Integer, nullable=True)
+
     reported_at = Column(
         DateTime(timezone=True),
         server_default=func.now()
     )
-
