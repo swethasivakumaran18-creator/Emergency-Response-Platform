@@ -1,211 +1,144 @@
+const API_BASE_URL = "https://emergency-ai-knjx.onrender.com";
+
 const typeEl = document.getElementById("type");
 const severityEl = document.getElementById("severity");
-
-const priorityLabel =
-  document.getElementById("priorityLabel");
-
-const priorityText =
-  document.getElementById("priorityText");
+const priorityLabel = document.getElementById("priorityLabel");
+const priorityText = document.getElementById("priorityText");
 
 
-/* =========================================================
-   RECOMMENDED RESPONSE
-   ========================================================= */
+/* =========================
+   API HELPER
+========================= */
 
-function recommendedFor(type, severity) {
+async function apiRequest(endpoint, options = {}) {
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers || {})
+    }
+  });
 
-  const list = [];
+  let data = null;
 
-  let responder = "Emergency Dispatch";
-  let eta = "Pending";
-
-
-  /* =========================
-     RESPONSE TYPE
-     ========================= */
-
-  if (
-    type === "Medical" ||
-    type === "Road Accident"
-  ) {
-
-    list.push("🚑 Ambulance");
-
-    responder = "AMB-07";
-    eta = "06:30";
-
+  try {
+    data = await response.json();
+  } catch {
+    data = null;
   }
 
+  if (!response.ok) {
+    throw new Error(
+      data?.detail ||
+      data?.message ||
+      `Request failed with status ${response.status}`
+    );
+  }
+
+  return data;
+}
+
+
+/* =========================
+   RESPONSE RECOMMENDATION
+========================= */
+
+function recommendedFor(type, severity) {
+  let responders = [];
+  let message = "";
+
+  if (type === "Medical" || type === "Road Accident") {
+    responders.push("🚑 Ambulance");
+  }
 
   if (
     type === "Crime / Security" ||
     type === "Women Safety"
   ) {
-
-    list.push("🚓 Police");
-
-    responder = "POL-12";
-    eta = "05:30";
-
+    responders.push("🚓 Police");
   }
-
 
   if (type === "Fire") {
-
-    list.push("🚒 Fire & Rescue");
-
-    responder = "FIR-04";
-    eta = "04:30";
-
+    responders.push("🚒 Fire & Rescue");
   }
 
-
   if (type === "Natural Disaster") {
-
-    list.push(
+    responders.push(
       "🚑 Ambulance",
       "🚓 Police",
       "🚒 Fire & Rescue"
     );
-
-    responder = "Multi-Agency Dispatch";
-    eta = "08:00";
-
   }
 
-
-  if (!list.length) {
-
-    list.push(
-      "🛟 General Response"
-    );
-
+  if (responders.length === 0) {
+    responders.push("🛟 Emergency Response");
   }
-
-
-  /* =========================
-     PRIORITY
-     ========================= */
-
-  let level = severity || "Pending";
-
-  let message =
-    "Select a severity to calculate priority.";
-
 
   if (severity === "Critical") {
-
-    message =
-      "Immediate dispatch recommended.";
-
+    message = "Immediate response recommended.";
   } else if (severity === "High") {
-
-    message =
-      "Urgent response recommended.";
-
+    message = "Urgent response recommended.";
   } else if (severity === "Medium") {
-
-    message =
-      "Standard response recommended.";
-
-  } else if (severity === "Low") {
-
-    message =
-      "Non-urgent assistance recommended.";
-
+    message = "Standard response recommended.";
+  } else {
+    message = "Non-urgent response recommended.";
   }
 
-
   return {
-    list,
-    level,
-    message,
-    responder,
-    eta
+    responders,
+    message
   };
 }
 
 
-/* =========================================================
-   UPDATE SMART RESPONSE PREVIEW
-   ========================================================= */
+/* =========================
+   UPDATE PREVIEW
+========================= */
 
 function updatePreview() {
-
-  const response =
-    recommendedFor(
-      typeEl?.value,
-      severityEl?.value
-    );
-
-
-  if (priorityLabel) {
-
-    priorityLabel.textContent =
-      response.level.toUpperCase();
-
+  if (!typeEl || !severityEl) {
+    return;
   }
 
+  const result = recommendedFor(
+    typeEl.value,
+    severityEl.value
+  );
+
+  if (priorityLabel) {
+    priorityLabel.textContent =
+      severityEl.value || "PENDING";
+  }
 
   if (priorityText) {
-
     priorityText.textContent =
-      response.message +
-      (
-        response.list.length
-          ? " " +
-            response.list.join(" • ")
-          : ""
-      );
-
-  }
-
-
-  /*
-    Highlight critical cases
-  */
-
-  if (priorityLabel) {
-
-    priorityLabel.style.color =
-      response.level === "Critical"
-        ? "#ef3636"
-        : "#ffffff";
-
+      `${result.message} ${result.responders.join(" • ")}`;
   }
 }
 
 
-/* =========================================================
-   FORM FIELD LISTENERS
-   ========================================================= */
+if (typeEl) {
+  typeEl.addEventListener(
+    "change",
+    updatePreview
+  );
+}
 
-[typeEl, severityEl].forEach(
-  element => {
-
-    if (!element) {
-      return;
-    }
-
-    element.addEventListener(
-      "change",
-      updatePreview
-    );
-
-  }
-);
+if (severityEl) {
+  severityEl.addEventListener(
+    "change",
+    updatePreview
+  );
+}
 
 
-/* =========================================================
+/* =========================
    CAPTURE LOCATION
-   ========================================================= */
+========================= */
 
 function captureLocation() {
-
-  const text =
-    document.getElementById(
-      "locationText"
-    );
+  const locationText =
+    document.getElementById("locationText");
 
   const latInput =
     document.getElementById("lat");
@@ -213,132 +146,92 @@ function captureLocation() {
   const lngInput =
     document.getElementById("lng");
 
-
-  if (!text) {
-    return;
-  }
-
-
-  if (
-    !("geolocation" in navigator)
-  ) {
-
-    text.textContent =
-      "Geolocation is not supported.";
+  if (!navigator.geolocation) {
+    if (locationText) {
+      locationText.textContent =
+        "Geolocation is not supported.";
+    }
 
     return;
   }
 
-
-  text.textContent =
-    "Getting your location…";
-
+  if (locationText) {
+    locationText.textContent =
+      "Getting your location...";
+  }
 
   navigator.geolocation.getCurrentPosition(
-
-    position => {
-
-      const lat =
+    (position) => {
+      const latitude =
         position.coords.latitude;
 
-      const lng =
+      const longitude =
         position.coords.longitude;
 
-
       if (latInput) {
-
-        latInput.value =
-          lat;
-
+        latInput.value = latitude;
       }
-
 
       if (lngInput) {
-
-        lngInput.value =
-          lng;
-
+        lngInput.value = longitude;
       }
 
-
-      text.textContent =
-        `✓ Location captured: ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
-
+      if (locationText) {
+        locationText.textContent =
+          `✓ Location captured: ${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
+      }
     },
 
-
-    error => {
-
-      console.warn(
+    (error) => {
+      console.error(
         "Location error:",
-        error.message
+        error
       );
 
-
-      text.textContent =
-        "Permission denied or location unavailable.";
-
+      if (locationText) {
+        locationText.textContent =
+          "Unable to get location.";
+      }
     },
-
 
     {
       enableHighAccuracy: true,
-
       timeout: 10000,
-
       maximumAge: 0
-
     }
-
   );
 }
 
 
-/* =========================================================
-   SERVICE PAGE → REPORT PAGE
-   ========================================================= */
+/* =========================
+   URL TYPE
+========================= */
 
 const params =
   new URLSearchParams(
     window.location.search
   );
 
-
-if (
-  params.get("type") &&
-  typeEl
-) {
-
+if (params.get("type") && typeEl) {
   typeEl.value =
     params.get("type");
 
   updatePreview();
-
 }
 
 
-/* =========================================================
-   REPORT SUBMISSION
-   ========================================================= */
+/* =========================
+   FORM SUBMISSION
+========================= */
 
 const reportForm =
-  document.getElementById(
-    "reportForm"
-  );
-
+  document.getElementById("reportForm");
 
 if (reportForm) {
-
   reportForm.addEventListener(
     "submit",
-    event => {
-
+    async (event) => {
       event.preventDefault();
-
-
-      /* =========================
-         GET FORM VALUES
-         ========================= */
 
       const name =
         document
@@ -353,34 +246,35 @@ if (reportForm) {
           .trim();
 
       const type =
-        typeEl?.value || "";
+        typeEl?.value;
 
       const severity =
-        severityEl?.value || "";
+        severityEl?.value;
 
       const description =
         document
-          .getElementById(
-            "description"
-          )
+          .getElementById("description")
           ?.value
           .trim();
 
+      const latitude =
+        Number(
+          document
+            .getElementById("lat")
+            ?.value
+        );
 
-      const lat =
-        document
-          .getElementById("lat")
-          ?.value || null;
-
-      const lng =
-        document
-          .getElementById("lng")
-          ?.value || null;
+      const longitude =
+        Number(
+          document
+            .getElementById("lng")
+            ?.value
+        );
 
 
       /* =========================
          VALIDATION
-         ========================= */
+      ========================= */
 
       if (
         !name ||
@@ -389,19 +283,16 @@ if (reportForm) {
         !severity ||
         !description
       ) {
-
         alert(
-          "Please complete all required fields."
+          "Please fill in all required fields."
         );
 
         return;
       }
 
-
       if (
         !/^[0-9]{10}$/.test(phone)
       ) {
-
         alert(
           "Please enter a valid 10-digit phone number."
         );
@@ -409,178 +300,191 @@ if (reportForm) {
         return;
       }
 
-
-      /* =========================
-         SMART RESPONSE
-         ========================= */
-
-      const response =
-        recommendedFor(
-          type,
-          severity
+      if (
+        !Number.isFinite(latitude) ||
+        !Number.isFinite(longitude)
+      ) {
+        alert(
+          "Please use your location before submitting the report."
         );
 
-
-      /* =========================
-         CREATE INCIDENT
-         ========================= */
-
-      const incident =
-        createIncident({
-
-          name,
-
-          phone,
-
-          type,
-
-          severity,
-
-          description,
-
-          lat,
-
-          lng,
-
-          recommended:
-            response.list,
-
-          responder:
-            response.responder,
-
-          eta:
-            response.eta
-
-        });
+        return;
+      }
 
 
       /* =========================
-         SHOW RESULT
-         ========================= */
+         RESULT BOX
+      ========================= */
 
-      const box =
+      const resultBox =
         document.getElementById(
           "formResult"
         );
 
-
-      if (box) {
-
-        box.classList.remove(
+      if (resultBox) {
+        resultBox.classList.remove(
           "hidden"
         );
 
-
-        box.innerHTML = `
-          ✓ <strong>${escapeHtml(incident.id)}</strong>
-          created successfully.
-
-          <br><br>
-
-          <strong>Priority:</strong>
-          ${escapeHtml(severity)}
-
-          <br>
-
-          <strong>Recommended:</strong>
-          ${response.list
-            .map(item =>
-              escapeHtml(item)
-            )
-            .join(" • ")
-          }
-
-          <br>
-
-          <strong>Responder:</strong>
-          ${escapeHtml(response.responder)}
-
-          <br>
-
-          <strong>ETA:</strong>
-          ${escapeHtml(response.eta)}
-
-          <br><br>
-
-          <a
-            href="/dashboard"
-            style="
-              color:#ef3636;
-              font-weight:800;
-            "
-          >
-            Open Dashboard →
-          </a>
-        `;
-
+        resultBox.textContent =
+          "Sending emergency report...";
       }
 
 
       /* =========================
-         RESET FORM
-         ========================= */
+         SEND TO BACKEND
+      ========================= */
 
-      reportForm.reset();
+      try {
+        const data =
+          await apiRequest(
+            "/incidents",
+            {
+              method: "POST",
+
+              body: JSON.stringify({
+                type: type,
+                description: description,
+                latitude: latitude,
+                longitude: longitude
+              })
+            }
+          );
 
 
-      const locationText =
-        document.getElementById(
-          "locationText"
+        const incidentId =
+          data.incident_id ||
+          data.id ||
+          "Created";
+
+        if (resultBox) {
+  resultBox.innerHTML = `
+    <strong>
+      ✓ Incident reported successfully
+    </strong>
+
+    <br><br>
+
+    <strong>Incident ID:</strong>
+    ${escapeHtml(incidentId)}
+
+    <br>
+
+    <strong>Status:</strong>
+    ${escapeHtml(data.status || "Reported")}
+
+    <br>
+
+    <strong>Category:</strong>
+    ${escapeHtml(data.category || type)}
+
+    <br>
+
+    <strong>Severity:</strong>
+    ${escapeHtml(data.severity || severity)}
+
+    <br>
+
+    <strong>Location:</strong>
+    ${latitude.toFixed(6)},
+    ${longitude.toFixed(6)}
+
+    <br><br>
+
+    <strong>AI Summary:</strong>
+    ${escapeHtml(data.summary || "—")}
+
+    <br><br>
+
+    <strong>Recommended Response:</strong>
+    ${escapeHtml(data.recommended_response || "—")}
+
+    <br><br>
+
+    <a href="dashboard.html">
+      View Command Dashboard →
+    </a>
+  `;
+}
+
+
+        /* =========================
+           RESET FORM
+        ========================= */
+
+        reportForm.reset();
+
+
+        const locationText =
+          document.getElementById(
+            "locationText"
+          );
+
+        if (locationText) {
+          locationText.textContent =
+            "Location not captured";
+        }
+
+
+        const latInput =
+          document.getElementById("lat");
+
+        const lngInput =
+          document.getElementById("lng");
+
+        if (latInput) {
+          latInput.value = "";
+        }
+
+        if (lngInput) {
+          lngInput.value = "";
+        }
+
+
+        updatePreview();
+
+      } catch (error) {
+        console.error(
+          "Incident submission failed:",
+          error
         );
 
+        if (resultBox) {
+          resultBox.innerHTML = `
+            <strong>
+              ⚠️ Report failed
+            </strong>
 
-      if (locationText) {
+            <br>
 
-        locationText.textContent =
-          "Location not captured";
-
+            ${escapeHtml(
+              error.message
+            )}
+          `;
+        }
       }
-
-
-      const latInput =
-        document.getElementById("lat");
-
-      const lngInput =
-        document.getElementById("lng");
-
-
-      if (latInput) {
-        latInput.value = "";
-      }
-
-      if (lngInput) {
-        lngInput.value = "";
-      }
-
-
-      updatePreview();
-
     }
   );
 }
 
 
-/* =========================================================
+/* =========================
    HTML ESCAPE
-   ========================================================= */
+========================= */
 
 function escapeHtml(value) {
+  return String(value).replace(
+    /[&<>"']/g,
+    (character) => {
+      const entities = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      };
 
-  return String(value)
-    .replace(
-      /[&<>"']/g,
-      character => {
-
-        const entities = {
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#039;"
-        };
-
-        return entities[character];
-      }
-    );
-
+      return entities[character];
+    }
+  );
 }
