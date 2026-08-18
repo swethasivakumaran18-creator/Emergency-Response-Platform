@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://emergency-ai-knjx.onrender.com";
+const API_BASE_URL = "https://emergency-backend-o2u2.onrender.com";
 
 const typeEl = document.getElementById("type");
 const severityEl = document.getElementById("severity");
