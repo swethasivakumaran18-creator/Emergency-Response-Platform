@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <meta
     name="description"
     content="Emergency Response Platform - fast, location-aware emergency coordination."
   >
 
-  <title>Emergency Response | Home</title>
+  <title>Emergency Response Platform</title>
+
   <!-- FAVICON -->
   <link rel="icon" type="image/x-icon" href="logo.ico">
   <link rel="shortcut icon" type="image/x-icon" href="logo.ico">
+
+  <!-- GOOGLE FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -21,30 +30,79 @@
     rel="stylesheet"
   >
 
+  <!-- LEAFLET -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  >
+
+  <!-- MAIN CSS -->
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- DASHBOARD CSS -->
+  <link rel="stylesheet" href="css/dashboard.css">
+
 </head>
 
+
 <body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
 
 <header class="navbar">
 
   <!-- LOGO -->
-  <a class="brand" href="/">
+  <a class="brand" href="#home">
+
     <span class="brand-icon">🚨</span>
-    <span><b>Emergency</b> Response</span>
+
+    <span>
+      <b>Emergency</b> Response
+    </span>
+
   </a>
+
 
   <!-- NAVIGATION -->
   <nav class="nav-links" aria-label="Main navigation">
-    <a class="active" href="/">Home</a>
-    <a href="/report.html">Report</a>
-    <a href="/services.html">Services</a>
-    <a href="/dashboard.html">Dashboard</a>
-    <a href="/about.html">About</a>
+
+    <a
+      class="active"
+      href="#home"
+    >
+      Home
+    </a>
+
+    <a href="#report">
+      Report
+    </a>
+
+    <a href="#services">
+      Services
+    </a>
+
+    <a href="#dashboard">
+      Dashboard
+    </a>
+
+    <a href="#about">
+      About
+    </a>
+
   </nav>
 
-  <!-- SOS BUTTON -->
-  <button class="sos-nav" onclick="openSOS()">SOS</button>
+
+  <!-- SOS -->
+  <button
+    class="sos-nav"
+    onclick="openSOS()"
+  >
+    SOS
+  </button>
+
 
   <!-- MOBILE MENU -->
   <button
@@ -58,112 +116,1526 @@
 </header>
 
 
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
 <main>
 
-  <!-- HERO SECTION -->
-  <section class="hero">
 
-    <div class="hero-copy">
+<!-- =========================================================
+     HOME SECTION
+========================================================= -->
 
-      <div class="eyebrow">
-        24/7 EMERGENCY RESPONSE SYSTEM
-      </div>
+<section
+  id="home"
+  class="hero"
+>
 
-      <h1>
-        Help when every<br>
-        <span>second matters.</span>
-      </h1>
+  <div class="hero-copy">
 
-      <p class="hero-text">
-        One platform to report emergencies, share your location,
-        prioritize incidents and coordinate the right response faster.
-      </p>
-
-      <div class="hero-actions">
-
-        <!-- CLEAN URL -->
-        <a
-          class="btn btn-primary"
-          href="/report"
-        >
-          Report Emergency
-        </a>
-
-        <button
-          class="btn btn-secondary"
-          onclick="shareLocation()"
-        >
-          📍 Share Location
-        </button>
-
-      </div>
-
-      <div
-        id="locationStatus"
-        class="location-status"
-        aria-live="polite"
-      ></div>
-
+    <div class="eyebrow">
+      24/7 EMERGENCY RESPONSE SYSTEM
     </div>
 
+    <h1>
+      Help when every<br>
+      <span>second matters.</span>
+    </h1>
 
-    <!-- SOS CARD -->
-    <div class="sos-card">
+    <p class="hero-text">
 
-      <div class="pulse-ring"></div>
+      One platform to report emergencies, share your location,
+      prioritize incidents and coordinate the right response faster.
 
-      <div class="sos-circle">
-        SOS
-      </div>
+    </p>
 
-      <h2>
-        Emergency Assistance
-      </h2>
 
-      <p>
-        Press SOS to start an emergency request
-        with your current location.
-      </p>
+    <div class="hero-actions">
+
+      <a
+        class="btn btn-primary"
+        href="#report"
+      >
+        Report Emergency
+      </a>
+
 
       <button
-        class="btn btn-danger wide"
-        onclick="openSOS()"
+        class="btn btn-secondary"
+        onclick="shareLocation()"
       >
-        SEND SOS
+        📍 Share Location
       </button>
 
     </div>
 
+
+    <div
+      id="locationStatus"
+      class="location-status"
+      aria-live="polite"
+    ></div>
+
+  </div>
+
+
+
+  <!-- SOS CARD -->
+
+  <div class="sos-card">
+
+    <div class="pulse-ring"></div>
+
+    <div class="sos-circle">
+      SOS
+    </div>
+
+    <h2>
+      Emergency Assistance
+    </h2>
+
+    <p>
+      Press SOS to start an emergency request
+      with your current location.
+    </p>
+
+    <button
+      class="btn btn-danger wide"
+      onclick="openSOS()"
+    >
+      SEND SOS
+    </button>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     HOME STATS
+========================================================= -->
+
+<section class="stats-strip">
+
+  <div>
+
+    <strong>24/7</strong>
+
+    <span>
+      Availability
+    </span>
+
+  </div>
+
+
+  <div>
+
+    <strong>01</strong>
+
+    <span>
+      Unified Platform
+    </span>
+
+  </div>
+
+
+  <div>
+
+    <strong>AI</strong>
+
+    <span>
+      Priority Support
+    </span>
+
+  </div>
+
+
+  <div>
+
+    <strong>GPS</strong>
+
+    <span>
+      Location Aware
+    </span>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     HOW IT WORKS
+========================================================= -->
+
+<section class="section">
+
+  <div class="section-heading">
+
+    <div>
+
+      <div class="eyebrow">
+        HOW IT WORKS
+      </div>
+
+      <h2>
+        From emergency signal to response.
+      </h2>
+
+    </div>
+
+
+    <p>
+      Designed for a fast, clear and demonstrable
+      emergency workflow.
+    </p>
+
+  </div>
+
+
+
+  <div class="workflow">
+
+    <div class="workflow-card">
+
+      <span>01</span>
+
+      <h3>
+        Report
+      </h3>
+
+      <p>
+        Submit an emergency or trigger SOS in seconds.
+      </p>
+
+    </div>
+
+
+    <div class="workflow-card">
+
+      <span>02</span>
+
+      <h3>
+        Locate
+      </h3>
+
+      <p>
+        Capture GPS coordinates to understand
+        where help is needed.
+      </p>
+
+    </div>
+
+
+    <div class="workflow-card">
+
+      <span>03</span>
+
+      <h3>
+        Prioritize
+      </h3>
+
+      <p>
+        Smart rules classify the incident and
+        recommend a response.
+      </p>
+
+    </div>
+
+
+    <div class="workflow-card">
+
+      <span>04</span>
+
+      <h3>
+        Dispatch
+      </h3>
+
+      <p>
+        Assign the appropriate responder and
+        track the status.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     COMMAND CENTER CALLOUT
+========================================================= -->
+
+<section class="feature-band">
+
+  <div>
+
+    <div class="eyebrow">
+      COMMAND CENTER
+    </div>
+
+    <h2>
+      See the whole response,
+      not just the alert.
+    </h2>
+
+    <p>
+      Monitor active incidents, response priority,
+      responder availability and simulated ETA
+      from one dashboard.
+    </p>
+
+  </div>
+
+
+  <a
+    class="btn btn-light"
+    href="#dashboard"
+  >
+    Open Command Center →
+  </a>
+
+</section>
+
+
+
+<!-- =========================================================
+     QUICK HELP
+========================================================= -->
+
+<section class="section compact">
+
+  <div class="section-heading">
+
+    <div>
+
+      <div class="eyebrow">
+        QUICK HELP
+      </div>
+
+      <h2>
+        Emergency services
+      </h2>
+
+    </div>
+
+  </div>
+
+
+  <div class="service-grid">
+
+    <a
+      href="#medical"
+      class="service-card"
+    >
+
+      <span>🚑</span>
+
+      <h3>
+        Medical
+      </h3>
+
+      <p>
+        Ambulance & hospital assistance
+      </p>
+
+    </a>
+
+
+    <a
+      href="#police"
+      class="service-card"
+    >
+
+      <span>🚓</span>
+
+      <h3>
+        Police
+      </h3>
+
+      <p>
+        Safety and crime response
+      </p>
+
+    </a>
+
+
+    <a
+      href="#fire"
+      class="service-card"
+    >
+
+      <span>🚒</span>
+
+      <h3>
+        Fire & Rescue
+      </h3>
+
+      <p>
+        Fire and rescue coordination
+      </p>
+
+    </a>
+
+
+    <a
+      href="#safety"
+      class="service-card"
+    >
+
+      <span>🛡️</span>
+
+      <h3>
+        Safety
+      </h3>
+
+      <p>
+        Personal and community safety
+      </p>
+
+    </a>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     REPORT SECTION
+========================================================= -->
+
+<section
+  id="report"
+  class="page-main"
+>
+
+  <!-- PAGE HEADER -->
+
+  <section class="page-hero">
+
+    <div class="eyebrow">
+      INCIDENT REPORTING
+    </div>
+
+    <h1>
+      Tell us what happened.
+    </h1>
+
+    <p>
+      Give the response team the information they need.
+      Location can be captured directly from your device.
+    </p>
+
   </section>
 
 
-  <!-- STATS -->
-  <section class="stats-strip">
 
-    <div>
-      <strong>24/7</strong>
-      <span>Availability</span>
+  <!-- REPORT LAYOUT -->
+
+  <section class="report-layout">
+
+
+    <!-- FORM -->
+
+    <form
+      id="reportForm"
+      class="panel form-panel"
+    >
+
+      <div class="panel-head">
+
+        <div>
+
+          <span class="panel-kicker">
+            NEW INCIDENT
+          </span>
+
+          <h2>
+            Emergency report
+          </h2>
+
+        </div>
+
+        <span class="live-dot">
+          ● LIVE
+        </span>
+
+      </div>
+
+
+      <!-- NAME -->
+
+      <label>
+
+        Full name
+
+        <input
+          id="name"
+          type="text"
+          placeholder="Enter your name"
+          autocomplete="name"
+          required
+        >
+
+      </label>
+
+
+
+      <!-- PHONE + TYPE -->
+
+      <div class="form-grid">
+
+        <label>
+
+          Phone number
+
+          <input
+            id="phone"
+            type="tel"
+            placeholder="10-digit mobile number"
+            pattern="[0-9]{10}"
+            maxlength="10"
+            autocomplete="tel"
+            required
+          >
+
+        </label>
+
+
+        <label>
+
+          Emergency type
+
+          <select
+            id="type"
+            required
+          >
+
+            <option value="">
+              Select type
+            </option>
+
+            <option value="Medical">
+              Medical
+            </option>
+
+            <option value="Road Accident">
+              Road Accident
+            </option>
+
+            <option value="Fire">
+              Fire
+            </option>
+
+            <option value="Crime / Security">
+              Crime / Security
+            </option>
+
+            <option value="Women Safety">
+              Women Safety
+            </option>
+
+            <option value="Natural Disaster">
+              Natural Disaster
+            </option>
+
+            <option value="Other">
+              Other
+            </option>
+
+          </select>
+
+        </label>
+
+      </div>
+
+
+
+      <!-- SEVERITY -->
+
+      <label>
+
+        Severity
+
+        <select
+          id="severity"
+          required
+        >
+
+          <option value="">
+            Select severity
+          </option>
+
+          <option value="Critical">
+            Critical - immediate danger
+          </option>
+
+          <option value="High">
+            High - urgent response
+          </option>
+
+          <option value="Medium">
+            Medium - assistance needed
+          </option>
+
+          <option value="Low">
+            Low - non-urgent
+          </option>
+
+        </select>
+
+      </label>
+
+
+
+      <!-- DESCRIPTION -->
+
+      <label>
+
+        What happened?
+
+        <textarea
+          id="description"
+          rows="5"
+          placeholder="Briefly describe the emergency..."
+          required
+        ></textarea>
+
+      </label>
+
+
+
+      <!-- LOCATION -->
+
+      <div class="location-box">
+
+        <div>
+
+          <strong>
+            📍 Location
+          </strong>
+
+          <p id="locationText">
+            Location not captured
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="btn btn-secondary small"
+          onclick="captureLocation()"
+        >
+          Use My Location
+        </button>
+
+      </div>
+
+
+
+      <!-- GPS VALUES -->
+
+      <input
+        type="hidden"
+        id="lat"
+      >
+
+      <input
+        type="hidden"
+        id="lng"
+      >
+
+
+
+      <!-- SUBMIT -->
+
+      <button
+        class="btn btn-primary wide"
+        type="submit"
+      >
+        Create Emergency Report →
+      </button>
+
+
+
+      <!-- RESULT -->
+
+      <div
+        id="formResult"
+        class="result-box hidden"
+        aria-live="polite"
+      ></div>
+
+    </form>
+
+
+
+    <!-- SMART RESPONSE -->
+
+    <aside class="panel side-panel">
+
+      <div class="priority-preview">
+
+        <span>
+          SMART RESPONSE
+        </span>
+
+        <strong id="priorityLabel">
+          Waiting for report
+        </strong>
+
+        <p id="priorityText">
+
+          Select an emergency type and severity
+          to see the recommended response.
+
+        </p>
+
+      </div>
+
+
+
+      <div class="response-list">
+
+        <h3>
+          Recommended response
+        </h3>
+
+
+        <div id="responseItems">
+
+          <div class="response-item">
+
+            <span>
+              🚑
+            </span>
+
+            <div>
+
+              <b>
+                Ambulance
+              </b>
+
+              <small>
+                Triggered for medical/accident emergencies
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <div class="response-item">
+
+            <span>
+              🚓
+            </span>
+
+            <div>
+
+              <b>
+                Police
+              </b>
+
+              <small>
+                Triggered for security and crime incidents
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <div class="response-item">
+
+            <span>
+              🚒
+            </span>
+
+            <div>
+
+              <b>
+                Fire & Rescue
+              </b>
+
+              <small>
+                Triggered for fire incidents
+              </small>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- SAFETY NOTE -->
+
+      <div class="safety-note">
+
+        <b>
+          Safety note
+        </b>
+
+        <p>
+          This prototype provides coordination support.
+          For a real emergency, contact your local
+          emergency services as appropriate.
+        </p>
+
+      </div>
+
+    </aside>
+
+  </section>
+
+</section>
+
+
+
+<!-- =========================================================
+     SERVICES SECTION
+========================================================= -->
+
+<section
+  id="services"
+  class="page-main"
+>
+
+  <!-- PAGE HERO -->
+
+  <section class="page-hero">
+
+    <div class="eyebrow">
+      RESPONSE SERVICES
     </div>
 
-    <div>
-      <strong>01</strong>
-      <span>Unified Platform</span>
-    </div>
+    <h1>
+      Right help. Right priority.
+    </h1>
+
+    <p>
+      A single interface for different emergency
+      scenarios and response guidance.
+    </p>
+
+  </section>
+
+
+
+  <!-- SERVICES GRID -->
+
+  <section class="service-detail-grid">
+
+
+    <!-- MEDICAL -->
+
+    <article
+      id="medical"
+      class="service-detail"
+    >
+
+      <div class="big-icon">
+        🚑
+      </div>
+
+
+      <div>
+
+        <span class="panel-kicker">
+          MEDICAL
+        </span>
+
+        <h2>
+          Medical emergency
+        </h2>
+
+        <p>
+          Capture location and incident details so
+          medical response can be prioritized.
+        </p>
+
+
+        <ul>
+
+          <li>
+            Immediate SOS support
+          </li>
+
+          <li>
+            Location capture
+          </li>
+
+          <li>
+            Nearest-help workflow
+          </li>
+
+          <li>
+            Hospital pre-alert concept
+          </li>
+
+        </ul>
+
+
+        <a
+          class="btn btn-primary"
+          href="#report"
+          onclick="setEmergencyType('Medical')"
+        >
+          Report Medical Emergency
+        </a>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- POLICE -->
+
+    <article
+      id="police"
+      class="service-detail"
+    >
+
+      <div class="big-icon">
+        🚓
+      </div>
+
+
+      <div>
+
+        <span class="panel-kicker">
+          SECURITY
+        </span>
+
+        <h2>
+          Police assistance
+        </h2>
+
+        <p>
+          Report safety, crime or security incidents
+          with structured information.
+        </p>
+
+
+        <ul>
+
+          <li>
+            Security incident category
+          </li>
+
+          <li>
+            Priority classification
+          </li>
+
+          <li>
+            Location-aware reporting
+          </li>
+
+          <li>
+            Responder status tracking
+          </li>
+
+        </ul>
+
+
+        <a
+          class="btn btn-primary"
+          href="#report"
+          onclick="setEmergencyType('Crime / Security')"
+        >
+          Report Security Incident
+        </a>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- FIRE -->
+
+    <article
+      id="fire"
+      class="service-detail"
+    >
+
+      <div class="big-icon">
+        🚒
+      </div>
+
+
+      <div>
+
+        <span class="panel-kicker">
+          FIRE & RESCUE
+        </span>
+
+        <h2>
+          Fire and rescue
+        </h2>
+
+        <p>
+          Quickly classify a fire emergency and route
+          it to the correct response workflow.
+        </p>
+
+
+        <ul>
+
+          <li>
+            Fire-specific reporting
+          </li>
+
+          <li>
+            Critical severity support
+          </li>
+
+          <li>
+            Responder dispatch simulation
+          </li>
+
+          <li>
+            Command-center visibility
+          </li>
+
+        </ul>
+
+
+        <a
+          class="btn btn-primary"
+          href="#report"
+          onclick="setEmergencyType('Fire')"
+        >
+          Report Fire Emergency
+        </a>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- SAFETY -->
+
+    <article
+      id="safety"
+      class="service-detail"
+    >
+
+      <div class="big-icon">
+        🛡️
+      </div>
+
+
+      <div>
+
+        <span class="panel-kicker">
+          PERSONAL SAFETY
+        </span>
+
+        <h2>
+          Safety assistance
+        </h2>
+
+        <p>
+          A rapid path to SOS and location sharing
+          for personal safety situations.
+        </p>
+
+
+        <ul>
+
+          <li>
+            One-tap SOS
+          </li>
+
+          <li>
+            GPS capture
+          </li>
+
+          <li>
+            Emergency status
+          </li>
+
+          <li>
+            Safety guidance
+          </li>
+
+        </ul>
+
+
+        <button
+          class="btn btn-danger"
+          onclick="openSOS()"
+        >
+          Send SOS
+        </button>
+
+      </div>
+
+    </article>
+
+  </section>
+
+
+
+  <!-- SOS CALLOUT -->
+
+  <section class="info-callout">
+
+    <h2>
+      Need immediate assistance?
+    </h2>
+
+    <p>
+      Use the SOS button for the fastest
+      prototype workflow.
+    </p>
+
+    <button
+      class="btn btn-danger"
+      onclick="openSOS()"
+    >
+      SEND SOS NOW
+    </button>
+
+  </section>
+
+</section>
+
+
+
+<!-- =========================================================
+     DASHBOARD SECTION
+========================================================= -->
+
+<section
+  id="dashboard"
+  class="dashboard-main"
+>
+
+  <!-- TITLE -->
+
+  <div class="dashboard-title">
 
     <div>
-      <strong>AI</strong>
-      <span>Priority Support</span>
+
+      <div class="eyebrow">
+        LIVE OPERATIONS
+      </div>
+
+      <h1>
+        Emergency Command Center
+      </h1>
+
+      <p>
+        Monitor incidents, priority and responder status
+        in one place.
+      </p>
+
     </div>
 
-    <div>
-      <strong>GPS</strong>
-      <span>Location Aware</span>
+
+    <button
+      class="btn btn-danger"
+      onclick="simulateEmergency()"
+    >
+      ⚡ Simulate Emergency
+    </button>
+
+  </div>
+
+
+
+  <!-- METRICS -->
+
+  <div class="metric-grid">
+
+
+    <!-- ACTIVE -->
+
+    <div class="metric">
+
+      <span>
+        ACTIVE INCIDENTS
+      </span>
+
+      <strong id="activeCount">
+        0
+      </strong>
+
+      <small>
+        Open cases
+      </small>
+
+    </div>
+
+
+
+    <!-- CRITICAL -->
+
+    <div class="metric critical">
+
+      <span>
+        CRITICAL CASES
+      </span>
+
+      <strong id="criticalCount">
+        0
+      </strong>
+
+      <small>
+        Immediate attention
+      </small>
+
+    </div>
+
+
+
+    <!-- RESPONDERS -->
+
+    <div class="metric">
+
+      <span>
+        RESPONDERS ACTIVE
+      </span>
+
+      <strong>
+        12
+      </strong>
+
+      <small>
+        Across services
+      </small>
+
+    </div>
+
+
+
+    <!-- RESPONSE TIME -->
+
+    <div class="metric">
+
+      <span>
+        AVG RESPONSE
+      </span>
+
+      <strong>
+        06:42
+      </strong>
+
+      <small>
+        Demo metric
+      </small>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- MAP + LIVE FEED -->
+
+  <div class="dashboard-grid">
+
+
+    <!-- MAP -->
+
+    <section class="panel map-panel">
+
+      <div class="panel-head">
+
+        <div>
+
+          <span class="panel-kicker">
+            SITUATIONAL MAP
+          </span>
+
+          <h2>
+            Incident locations
+          </h2>
+
+        </div>
+
+        <span class="live-dot">
+          ● LIVE
+        </span>
+
+      </div>
+
+
+      <div id="map"></div>
+
+    </section>
+
+
+
+    <!-- INCIDENT FEED -->
+
+    <section class="panel feed-panel">
+
+      <div class="panel-head">
+
+        <div>
+
+          <span class="panel-kicker">
+            EVENT STREAM
+          </span>
+
+          <h2>
+            Live incident feed
+          </h2>
+
+        </div>
+
+
+        <button
+          class="text-btn"
+          onclick="clearIncidents()"
+        >
+          Clear demo data
+        </button>
+
+      </div>
+
+
+      <div
+        id="incidentFeed"
+        class="incident-feed"
+      ></div>
+
+    </section>
+
+  </div>
+
+
+
+  <!-- DISPATCH -->
+
+  <section class="panel dispatch-panel">
+
+    <div class="panel-head">
+
+      <div>
+
+        <span class="panel-kicker">
+          DISPATCH
+        </span>
+
+        <h2>
+          Responder operations
+        </h2>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="dispatch-table">
+
+
+      <!-- HEADER -->
+
+      <div class="dispatch-row header">
+
+        <span>
+          Unit
+        </span>
+
+        <span>
+          Type
+        </span>
+
+        <span>
+          Status
+        </span>
+
+        <span>
+          ETA
+        </span>
+
+      </div>
+
+
+
+      <!-- AMBULANCE -->
+
+      <div class="dispatch-row">
+
+        <span>
+          AMB-07
+        </span>
+
+        <span>
+          🚑 Ambulance
+        </span>
+
+        <b class="status-pill green">
+          AVAILABLE
+        </b>
+
+        <span>
+          —
+        </span>
+
+      </div>
+
+
+
+      <!-- POLICE -->
+
+      <div class="dispatch-row">
+
+        <span>
+          POL-12
+        </span>
+
+        <span>
+          🚓 Police
+        </span>
+
+        <b class="status-pill green">
+          AVAILABLE
+        </b>
+
+        <span>
+          —
+        </span>
+
+      </div>
+
+
+
+      <!-- FIRE -->
+
+      <div class="dispatch-row">
+
+        <span>
+          FIR-04
+        </span>
+
+        <span>
+          🚒 Fire
+        </span>
+
+        <b class="status-pill amber">
+          EN ROUTE
+        </b>
+
+        <span>
+          04:30
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</section>
+
+
+
+<!-- =========================================================
+     ABOUT SECTION
+========================================================= -->
+
+<section
+  id="about"
+  class="page-main"
+>
+
+
+  <!-- PAGE HERO -->
+
+  <section class="page-hero">
+
+    <div class="eyebrow">
+      ABOUT THE PLATFORM
+    </div>
+
+    <h1>
+      Built around one idea:<br>
+      <span>reduce the time to action.</span>
+    </h1>
+
+    <p>
+      Emergency Response is a platform that connects incident
+      reporting, location awareness, prioritization and response
+      coordination in one simple interface.
+    </p>
+
+  </section>
+
+
+
+  <!-- PROBLEM + SOLUTION -->
+
+  <section class="about-grid">
+
+
+    <!-- PROBLEM -->
+
+    <div class="panel">
+
+      <span class="panel-kicker">
+        THE PROBLEM
+      </span>
+
+      <h2>
+        Emergency information is fragmented.
+      </h2>
+
+      <p>
+        During a crisis, users may need to communicate
+        what happened, where it happened and what kind
+        of help is needed. Our concept brings these pieces
+        into one structured workflow.
+      </p>
+
+    </div>
+
+
+
+    <!-- SOLUTION -->
+
+    <div class="panel dark-panel">
+
+      <span class="panel-kicker">
+        THE SOLUTION
+      </span>
+
+      <h2>
+        Signal → intelligence → action.
+      </h2>
+
+      <p>
+        We transform a report into a structured incident,
+        apply priority rules, recommend response resources
+        and surface the case in a command-center dashboard.
+      </p>
+
     </div>
 
   </section>
 
 
-  <!-- HOW IT WORKS -->
+
+  <!-- SYSTEM FLOW -->
+
   <section class="section">
 
     <div class="section-heading">
@@ -171,232 +1643,209 @@
       <div>
 
         <div class="eyebrow">
-          HOW IT WORKS
+          SYSTEM FLOW
         </div>
 
         <h2>
-          From emergency signal to response.
+          Designed for fast decisions.
         </h2>
 
       </div>
 
-      <p>
-        Designed for a fast, clear and demonstrable
-        emergency workflow.
-      </p>
-
     </div>
 
 
-    <div class="workflow">
 
-      <div class="workflow-card">
-
-        <span>01</span>
-
-        <h3>
-          Report
-        </h3>
-
-        <p>
-          Submit an emergency or trigger SOS in seconds.
-        </p>
-
-      </div>
+    <div class="timeline">
 
 
-      <div class="workflow-card">
-
-        <span>02</span>
-
-        <h3>
-          Locate
-        </h3>
-
-        <p>
-          Capture GPS coordinates to understand
-          where help is needed.
-        </p>
-
-      </div>
-
-
-      <div class="workflow-card">
-
-        <span>03</span>
-
-        <h3>
-          Prioritize
-        </h3>
-
-        <p>
-          Smart rules classify the incident and
-          recommend a response.
-        </p>
-
-      </div>
-
-
-      <div class="workflow-card">
-
-        <span>04</span>
-
-        <h3>
-          Dispatch
-        </h3>
-
-        <p>
-          Assign the appropriate responder and
-          track the status.
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- COMMAND CENTER -->
-  <section class="feature-band">
-
-    <div>
-
-      <div class="eyebrow">
-        COMMAND CENTER
-      </div>
-
-      <h2>
-        See the whole response,
-        not just the alert.
-      </h2>
-
-      <p>
-        Monitor active incidents, response priority,
-        responder availability and simulated ETA
-        from one dashboard.
-      </p>
-
-    </div>
-
-    <!-- CLEAN URL -->
-    <a
-      class="btn btn-light"
-      href="/dashboard"
-    >
-      Open Command Center →
-    </a>
-
-  </section>
-
-
-  <!-- QUICK HELP -->
-  <section class="section compact">
-
-    <div class="section-heading">
+      <!-- 01 -->
 
       <div>
 
-        <div class="eyebrow">
-          QUICK HELP
+        <b>
+          01
+        </b>
+
+        <div>
+
+          <h3>
+            Detect
+          </h3>
+
+          <p>
+            SOS or emergency report starts the workflow.
+          </p>
+
         </div>
 
-        <h2>
-          Emergency services
-        </h2>
+      </div>
+
+
+
+      <!-- 02 -->
+
+      <div>
+
+        <b>
+          02
+        </b>
+
+        <div>
+
+          <h3>
+            Understand
+          </h3>
+
+          <p>
+            Emergency type, severity and description
+            are structured.
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- 03 -->
+
+      <div>
+
+        <b>
+          03
+        </b>
+
+        <div>
+
+          <h3>
+            Locate
+          </h3>
+
+          <p>
+            GPS coordinates provide the incident location
+            when permission is granted.
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- 04 -->
+
+      <div>
+
+        <b>
+          04
+        </b>
+
+        <div>
+
+          <h3>
+            Dispatch
+          </h3>
+
+          <p>
+            Response recommendations and responder
+            status are displayed.
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- 05 -->
+
+      <div>
+
+        <b>
+          05
+        </b>
+
+        <div>
+
+          <h3>
+            Resolve
+          </h3>
+
+          <p>
+            Status can move from reported to dispatched,
+            en route and resolved.
+          </p>
+
+        </div>
 
       </div>
 
     </div>
 
-
-    <div class="service-grid">
-
-      <!-- MEDICAL -->
-      <a
-        href="/services#medical"
-        class="service-card"
-      >
-        <span>🚑</span>
-
-        <h3>
-          Medical
-        </h3>
-
-        <p>
-          Ambulance & hospital assistance
-        </p>
-      </a>
+  </section>
 
 
-      <!-- POLICE -->
-      <a
-        href="/services#police"
-        class="service-card"
-      >
-        <span>🚓</span>
 
-        <h3>
-          Police
-        </h3>
+  <!-- TECHNOLOGY -->
 
-        <p>
-          Safety and crime response
-        </p>
-      </a>
+  <section class="tech-stack">
 
+    <span>
+      HTML
+    </span>
 
-      <!-- FIRE -->
-      <a
-        href="/services#fire"
-        class="service-card"
-      >
-        <span>🚒</span>
+    <span>
+      CSS
+    </span>
 
-        <h3>
-          Fire & Rescue
-        </h3>
+    <span>
+      JavaScript
+    </span>
 
-        <p>
-          Fire and rescue coordination
-        </p>
-      </a>
+    <span>
+      Geolocation API
+    </span>
 
+    <span>
+      Leaflet Maps
+    </span>
 
-      <!-- SAFETY -->
-      <a
-        href="/services#safety"
-        class="service-card"
-      >
-        <span>🛡️</span>
-
-        <h3>
-          Safety
-        </h3>
-
-        <p>
-          Personal and community safety
-        </p>
-      </a>
-
-    </div>
+    <span>
+      LocalStorage
+    </span>
 
   </section>
+
+</section>
+
+
 
 </main>
 
 
-<!-- FOOTER -->
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
 <footer class="footer">
 
   <div>
 
-    <!-- CLEAN HOME URL -->
-    <a class="brand" href="/">
-      <span class="brand-icon">🚨</span>
+    <a
+      class="brand"
+      href="#home"
+    >
+
+      <span class="brand-icon">
+        🚨
+      </span>
+
       <span>
         <b>Emergency</b> Response
       </span>
+
     </a>
 
     <p>
@@ -408,19 +1857,19 @@
 
   <div>
 
-    <a href="/report">
+    <a href="#report">
       Report
     </a>
 
-    <a href="/services">
+    <a href="#services">
       Services
     </a>
 
-    <a href="/dashboard">
+    <a href="#dashboard">
       Dashboard
     </a>
 
-    <a href="/about">
+    <a href="#about">
       About
     </a>
 
@@ -429,7 +1878,11 @@
 </footer>
 
 
-<!-- SOS MODAL -->
+
+<!-- =========================================================
+     SOS MODAL
+========================================================= -->
+
 <div
   id="sosModal"
   class="modal hidden"
@@ -440,6 +1893,7 @@
 
   <div class="modal-card">
 
+
     <button
       class="modal-close"
       onclick="closeSOS()"
@@ -448,18 +1902,22 @@
       ×
     </button>
 
+
     <div class="modal-icon">
       SOS
     </div>
+
 
     <h2 id="sosTitle">
       Start emergency assistance?
     </h2>
 
+
     <p>
       Are you unsafe? This will create a critical incident
       and share your current GPS location.
     </p>
+
 
     <div class="modal-actions">
 
@@ -470,6 +1928,7 @@
         Cancel
       </button>
 
+
       <button
         class="btn btn-danger"
         onclick="confirmSOS()"
@@ -478,6 +1937,7 @@
       </button>
 
     </div>
+
 
     <div
       id="sosResult"
@@ -489,7 +1949,65 @@
 </div>
 
 
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<!-- LEAFLET -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- MAIN JS -->
 <script src="js/main.js"></script>
+
+<!-- REPORT JS -->
+<script src="js/report.js"></script>
+
+<!-- DASHBOARD JS -->
+<script src="js/dashboard.js"></script>
+
+
+
+<!-- =========================================================
+     SERVICE TYPE HELPER
+========================================================= -->
+
+<script>
+
+function setEmergencyType(type) {
+
+  const typeSelect = document.getElementById("type");
+
+  if (typeSelect) {
+
+    typeSelect.value = type;
+
+    typeSelect.dispatchEvent(
+      new Event("change", {
+        bubbles: true
+      })
+    );
+
+  }
+
+  setTimeout(function () {
+
+    const reportSection = document.getElementById("report");
+
+    if (reportSection) {
+
+      reportSection.scrollIntoView({
+        behavior: "smooth"
+      });
+
+    }
+
+  }, 100);
+
+}
+
+</script>
+
 
 </body>
 </html>
